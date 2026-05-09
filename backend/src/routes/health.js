@@ -9,13 +9,43 @@ const router = express.Router();
  * /health:
  *   get:
  *     tags: [Health]
- *     summary: API health check
+ *     summary: API and database health check
+ *     description: |
+ *       Returns the liveness status of the API process and its PostgreSQL connection.
+ *
+ *       | `data.api` | `data.db`    | HTTP status |
+ *       |------------|--------------|-------------|
+ *       | `ok`       | `ok`         | **200**     |
+ *       | `ok`       | `unreachable`| **503**     |
+ *
+ *       This endpoint is intentionally **unauthenticated** and is safe to call
+ *       from load-balancer health probes.
  *     security: []
  *     responses:
  *       200:
- *         description: Service is healthy
+ *         description: All systems operational.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/HealthResponse'
  *       503:
- *         description: Service is degraded
+ *         description: Service degraded — database is unreachable.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ *                   example: Service degraded
+ *                 errors:
+ *                   type: object
+ *                   properties:
+ *                     api: { type: string, example: ok }
+ *                     db:  { type: string, example: unreachable }
  */
 router.get('/', async (_req, res) => {
   const status = { api: 'ok', db: 'unknown' };
@@ -38,3 +68,4 @@ router.get('/', async (_req, res) => {
 });
 
 export default router;
+

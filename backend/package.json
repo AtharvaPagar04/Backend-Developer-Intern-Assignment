@@ -11,9 +11,9 @@
     "lint:fix": "eslint src --ext .js --fix",
     "format": "prettier --write \"src/**/*.js\"",
     "format:check": "prettier --check \"src/**/*.js\"",
-    "test": "jest --runInBand --forceExit",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --forceExit",
+    "test": "NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --forceExit",
+    "test:watch": "NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage --forceExit",
     "migrate": "knex migrate:latest",
     "migrate:rollback": "knex migrate:rollback",
     "migrate:make": "knex migrate:make",
@@ -50,7 +50,9 @@
   "jest": {
     "testEnvironment": "node",
     "transform": {},
-    "extensionsToTreatAsEsm": [],
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ],
     "testMatch": [
       "**/tests/**/*.test.js"
     ],

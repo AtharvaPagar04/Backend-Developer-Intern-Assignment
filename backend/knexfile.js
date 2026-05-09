@@ -18,9 +18,13 @@ const config = {
     },
     migrations: {
       directory: './database/migrations',
+      loadExtensions: ['.js'],
+      extension: 'js',
     },
     seeds: {
       directory: './database/seeds',
+      loadExtensions: ['.js'],
+      extension: 'js',
     },
   },
 
@@ -35,9 +39,13 @@ const config = {
     },
     migrations: {
       directory: './database/migrations',
+      loadExtensions: ['.js'],
+      extension: 'js',
     },
     seeds: {
       directory: './database/seeds',
+      loadExtensions: ['.js'],
+      extension: 'js',
     },
   },
 
@@ -53,6 +61,8 @@ const config = {
     pool: { min: 2, max: 10 },
     migrations: {
       directory: './database/migrations',
+      loadExtensions: ['.js'],
+      extension: 'js',
     },
   },
 };
