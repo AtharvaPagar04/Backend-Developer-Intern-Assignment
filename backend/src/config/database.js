@@ -4,17 +4,20 @@ import logger from '../utils/logger.js';
 
 const db = knex({
   client: 'pg',
-  connection: {
-    host: config.db.host,
-    port: config.db.port,
-    database: config.db.database,
-    user: config.db.user,
-    password: config.db.password,
-    ssl:
-      process.env.NODE_ENV === 'production'
-        ? { rejectUnauthorized: false }
-        : false,
-  },
+  connection:
+    process.env.NODE_ENV === 'production'
+      ? {
+        connectionString: config.db.url,
+        ssl: { rejectUnauthorized: false },
+      }
+      : {
+        host: config.db.host,
+        port: config.db.port,
+        database: config.db.database,
+        user: config.db.user,
+        password: config.db.password,
+      },
+
   pool: {
     min: config.db.pool.min,
     max: config.db.pool.max,
