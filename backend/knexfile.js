@@ -2,19 +2,19 @@
 // Must be CommonJS-compatible or use .cjs extension when package.json has "type":"module"
 
 import 'dotenv/config';
-
+import appConfig from './src/config/index.js';
 /**
  * @type { import("knex").Knex.Config }
  */
-const config = {
+const knexConfig = {
   development: {
     client: 'pg',
     connection: {
-      host: config.db.host,
-      port: config.db.port,
-      database: config.db.database,
-      user: config.db.user,
-      password: config.db.password,
+      host: appConfig.db.host,
+      port: appConfig.db.port,
+      database: appConfig.db.database,
+      user: appConfig.db.user,
+      password: appConfig.db.password,
       ssl:
         process.env.NODE_ENV === 'production'
           ? { rejectUnauthorized: false }
@@ -59,6 +59,7 @@ const config = {
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT, 10),
       database: process.env.DB_NAME,
+      ssl: { rejectUnauthorized: false },
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
     },
@@ -71,4 +72,4 @@ const config = {
   },
 };
 
-export default config;
+export default knexConfig;
