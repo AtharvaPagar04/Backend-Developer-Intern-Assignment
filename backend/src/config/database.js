@@ -10,6 +10,10 @@ const db = knex({
     database: config.db.database,
     user: config.db.user,
     password: config.db.password,
+    ssl:
+      process.env.NODE_ENV === 'production'
+        ? { rejectUnauthorized: false }
+        : false,
   },
   pool: {
     min: config.db.pool.min,
