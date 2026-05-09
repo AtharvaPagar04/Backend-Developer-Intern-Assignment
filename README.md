@@ -13,7 +13,7 @@
 🔗 **https://backend-developer-intern-assignment.vercel.app/login**
 
 ### **Backend API**
-🔗 **https://backend-developer-intern-assignment-a8ni.onrender.com**
+🔗 **https://backend-developer-intern-assignment-a8ni.onrender.com/api/v1/health**
 
 ### **API Documentation**
 🔗 **https://backend-developer-intern-assignment-a8ni.onrender.com/api-docs**
