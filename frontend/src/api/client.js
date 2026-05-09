@@ -7,7 +7,6 @@ import axios from 'axios';
  */
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || '/api/v1',
-  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -28,11 +27,13 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('access_token');
-      // Redirect to login when auth is implemented
-      // window.location.href = '/login';
+      // Dispatch a custom event so AuthContext can update state
+      // without creating a circular dependency.
+      window.dispatchEvent(new Event('auth:logout'));
     }
     return Promise.reject(error);
   },
 );
 
 export default apiClient;
+
